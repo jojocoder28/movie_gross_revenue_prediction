@@ -31,6 +31,7 @@ def load_data():
     return df
 
 df = load_data()
+new_df=df.copy()
 
 # Label encoding for categorical columns (with "Unknown" class)
 categorical_columns = ['release_month', 'genre', 'director', 'writer', 'star', 'country', 'company', 'rating']
@@ -53,14 +54,14 @@ model.fit(X_train, y_train)
 
 # Sidebar for user inputs
 st.sidebar.header("Enter Movie Features:")
-release_month = st.sidebar.selectbox("Release Month", df['release_month'].unique())
-genre = st.sidebar.selectbox("Genre", df['genre'].unique())
-director = st.sidebar.selectbox("Director", df['director'].unique())
-writer = st.sidebar.selectbox("Writer", df['writer'].unique())
-star = st.sidebar.selectbox("Star", df['star'].unique())
-country = st.sidebar.selectbox("Country", df['country'].unique())
-company = st.sidebar.selectbox("Company", df['company'].unique())
-rating = st.sidebar.selectbox("Rating", df['rating'].unique())
+release_month = st.sidebar.selectbox("Release Month", new_df['release_month'].unique())
+genre = st.sidebar.selectbox("Genre", new_df['genre'].unique())
+director = st.sidebar.selectbox("Director", new_df['director'].unique())
+writer = st.sidebar.selectbox("Writer", new_df['writer'].unique())
+star = st.sidebar.selectbox("Star", new_df['star'].unique())
+country = st.sidebar.selectbox("Country", new_df['country'].unique())
+company = st.sidebar.selectbox("Company", new_df['company'].unique())
+rating = st.sidebar.selectbox("Rating", new_df['rating'].unique())
 runtime = st.sidebar.slider("Runtime (in minutes)", 60, 200, 120)
 votes = st.sidebar.slider("Votes (in thousands)", 100, 100000, 5000)
 budget = st.sidebar.number_input("Budget (in millions)", min_value=1, max_value=500, value=100)
