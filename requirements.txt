@@ -1,0 +1,10 @@
+streamlit
+seaborn
+pycaret
+matplotlib
+pandas
+numpy
+scikit-learn
+google-generativeai
+joblib
+python-dotenv
