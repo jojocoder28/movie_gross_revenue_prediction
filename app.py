@@ -122,7 +122,13 @@ input_data = input_data[X.columns]
 # Predict the revenue and display it
 if st.sidebar.button("Predict Revenue"):
     prediction = model.predict(input_data)[0]
-    st.success(f"The predicted Gross Revenue is approximately ${round(prediction, 2)} million.")
+    if prediction == 0:
+        classpred ='Low'
+    elif prediction == 1:
+        classpred = 'Medium'
+    else:
+        classpred = 'High'
+    st.success(f"The predicted Gross Revenue is {classpred}")
     feedback_prompt = f"This is a gross revenue prediction task from movie. Provide business recommendations based on the following data: {save_data} with the output being Predicted revenue: ${round(prediction, 2)} million."
     feedback_response = gemini_model.generate_content(feedback_prompt)
     feedback = feedback_response.text
