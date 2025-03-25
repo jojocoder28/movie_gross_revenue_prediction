@@ -2,7 +2,7 @@
 
 import streamlit as st
 import pandas as pd
-from sklearn.ensemble import ExtraTreesRegressor
+from sklearn.ensemble import ExtraTreesRegressor, RandomForestClassifier
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
@@ -33,6 +33,15 @@ def load_data():
 df = load_data()
 new_df=df.copy()
 
+from sklearn.cluster import KMeans
+
+# Normalize Gross Revenue for better clustering
+df['Gross Revenue (Normalized)'] = (df['Gross Revenue'] - df['Gross Revenue'].mean()) / df['Gross Revenue'].std()
+
+# Apply K-Means clustering
+kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
+df['Revenue Cluster'] = kmeans.fit_predict(df[['Gross Revenue (Normalized)']])
+
 # Label encoding for categorical columns (with "Unknown" class)
 categorical_columns = ['release_month', 'genre', 'director', 'writer', 'star', 'country', 'company', 'rating']
 label_encoders = {}
@@ -44,12 +53,12 @@ for col in categorical_columns:
     label_encoders[col].fit(unique_classes)
     df[col] = label_encoders[col].transform(df[col])
 
-X = df.drop(columns=['Gross Revenue'])
-y = df['Gross Revenue']
+X = df.drop(columns=['Gross Revenue','Gross Revenue (Normalized)','Revenue Cluster'])
+y = df['Revenue Cluster']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Train the model
-model = ExtraTreesRegressor(n_estimators=100, random_state=42)
+model = RandomForestClassifier(n_estimators=100, random_state=42)
 model.fit(X_train, y_train)
 
 # Sidebar for user inputs
