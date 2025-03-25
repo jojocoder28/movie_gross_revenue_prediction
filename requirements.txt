@@ -8,3 +8,4 @@ scikit-learn
 google-generativeai
 joblib
 python-dotenv
+openpyxl
