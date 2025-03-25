@@ -74,7 +74,7 @@ company = st.sidebar.selectbox("Company", new_df['company'].unique())
 rating = st.sidebar.selectbox("Rating", new_df['rating'].unique())
 runtime = st.sidebar.slider("Runtime (in minutes)", df['runtime'].min(),df['runtime'].max(),int(df['runtime'].median()))
 votes = st.sidebar.slider("Votes (in thousands)", df['votes'].min(),df['votes'].max(),int(df['votes'].median()))
-budget = st.sidebar.number_input("Budget (in millions)", min_value=df['budget'].min(),max_value=df['budget'].max(), value=df['budget'])
+budget = st.sidebar.number_input("Budget (in millions)", min_value=df['budget'].min(),max_value=df['budget'].max(), value=df['budget'].median())
 year = st.sidebar.number_input("Year", min_value=1900, max_value=2025, value=2020)  # Adding 'year' feature
 
 # Function to encode user input and handle unseen labels
