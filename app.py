@@ -74,7 +74,20 @@ def encode_value(col, value):
         else:
             return label_encoders[col].transform(['Unknown'])[0]  # Map unseen labels to 'Unknown'
     return value
-
+save_data = pd.DataFrame({
+    'release_month': [release_month],
+    'genre': [genre],
+    'director': [director],
+    'writer': [writer],
+    'star': [star],
+    'country': [country],
+    'company': [company],
+    'rating': [rating],
+    'runtime': [runtime],
+    'votes': [votes],
+    'budget': [budget],
+    'year': [year]  # Include 'year' in the input data
+})
 # Encode the user input
 input_data = pd.DataFrame({
     'release_month': [encode_value('release_month', release_month)],
@@ -91,20 +104,7 @@ input_data = pd.DataFrame({
     'year': [year]  # Include 'year' in the input data
 })
 
-save_data = pd.DataFrame({
-    'release_month': [release_month],
-    'genre': [genre],
-    'director': [director],
-    'writer': [writer],
-    'star': [star],
-    'country': [country],
-    'company': [company],
-    'rating': [rating],
-    'runtime': [runtime],
-    'votes': [votes],
-    'budget': [budget],
-    'year': [year]  # Include 'year' in the input data
-})
+
 
 # Make sure input data columns are in the same order as training data columns
 input_data = input_data[X.columns]
