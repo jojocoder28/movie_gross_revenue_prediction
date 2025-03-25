@@ -129,7 +129,7 @@ if st.sidebar.button("Predict Revenue"):
     else:
         classpred = 'High'
     st.success(f"The predicted Gross Revenue is {classpred}")
-    feedback_prompt = f"This is a gross revenue prediction task from movie. Provide business recommendations based on the following data: {save_data} with the output being Predicted revenue: ${round(prediction, 2)} million."
+    feedback_prompt = f"This is a gross revenue prediction task from movie. Provide business recommendations based on the following data: {save_data} with the output being Predicted revenue: {round(prediction, 2)} "
     feedback_response = gemini_model.generate_content(feedback_prompt)
     feedback = feedback_response.text
     st.subheader("AI-enabled Feedback & Recommendation")
