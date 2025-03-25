@@ -53,8 +53,9 @@ for col in categorical_columns:
     label_encoders[col].fit(unique_classes)
     df[col] = label_encoders[col].transform(df[col])
 
-X = df.drop(columns=['Gross Revenue','Gross Revenue (Normalized)','Revenue Cluster'])
-y = df['Revenue Cluster']
+# X = df.drop(columns=['Gross Revenue','Gross Revenue (Normalized)','Revenue Cluster'])
+X = df[['budget', 'votes', 'runtime']]  # Selecting relevant features
+y = df['Revenue Cluster']  # Target variable
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Train the model
@@ -100,18 +101,9 @@ save_data = pd.DataFrame({
 })
 # Encode the user input
 input_data = pd.DataFrame({
-    'release_month': [encode_value('release_month', release_month)],
-    'genre': [encode_value('genre', genre)],
-    'director': [encode_value('director', director)],
-    'writer': [encode_value('writer', writer)],
-    'star': [encode_value('star', star)],
-    'country': [encode_value('country', country)],
-    'company': [encode_value('company', company)],
-    'rating': [encode_value('rating', rating)],
-    'runtime': [runtime],
-    'votes': [votes],
     'budget': [budget],
-    'year': [year]  # Include 'year' in the input data
+    'votes': [votes],
+    'runtime': [runtime]  # Include 'year' in the input data
 })
 
 
